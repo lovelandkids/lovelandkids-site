@@ -1,0 +1,31 @@
+<div class="app-shell">
+  <header class="site-nav" role="banner">
+    <div class="brand">Love Land Kids</div>
+    <div class="language-picker">
+      <label for="language-select">{{ locale.translate('languageSelectorLabel') }}</label>
+      <select
+        id="language-select"
+        [value]="locale.currentLanguage()"
+        (change)="locale.setLanguage($any($event.target).value)"
+      >
+        @for (lang of languageOptions; track lang.code) {
+          <option value="{{ lang.code }}">{{ lang.label }}</option>
+        }
+      </select>
+    </div>
+    <nav class="nav-list" aria-label="Main navigation">
+      @for (item of navItems(); track item) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >{{ item.label }}</a
+        >
+      }
+    </nav>
+  </header>
+
+  <main class="content" role="main">
+    <router-outlet></router-outlet>
+  </main>
+</div>
